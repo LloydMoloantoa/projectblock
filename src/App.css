@@ -1,0 +1,8 @@
+.button {
+  background-color: #4c77af;
+}
+
+.button:hover {
+  background-color: #4c77af; /* Green */
+  color: white;
+}
