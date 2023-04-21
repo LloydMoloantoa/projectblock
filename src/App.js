@@ -28,7 +28,7 @@ function App() {
           onClick={() => navigate('/VerifyApp')}
         />
          <Menu.Item
-          name='view post'
+          name='View Story'
           onClick={() => navigate('/post')}
         />
       </Menu>
