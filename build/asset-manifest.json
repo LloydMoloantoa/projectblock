@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/projectblock/static/css/main.c37f6b64.chunk.css",
+    "main.js": "/projectblock/static/js/main.c46a453f.chunk.js",
+    "main.js.map": "/projectblock/static/js/main.c46a453f.chunk.js.map",
+    "runtime-main.js": "/projectblock/static/js/runtime-main.27e07e69.js",
+    "runtime-main.js.map": "/projectblock/static/js/runtime-main.27e07e69.js.map",
+    "static/css/2.4fcddf81.chunk.css": "/projectblock/static/css/2.4fcddf81.chunk.css",
+    "static/js/2.95649a2e.chunk.js": "/projectblock/static/js/2.95649a2e.chunk.js",
+    "static/js/2.95649a2e.chunk.js.map": "/projectblock/static/js/2.95649a2e.chunk.js.map",
+    "static/js/3.4ae62460.chunk.js": "/projectblock/static/js/3.4ae62460.chunk.js",
+    "static/js/3.4ae62460.chunk.js.map": "/projectblock/static/js/3.4ae62460.chunk.js.map",
+    "index.html": "/projectblock/index.html",
+    "static/css/2.4fcddf81.chunk.css.map": "/projectblock/static/css/2.4fcddf81.chunk.css.map",
+    "static/css/main.c37f6b64.chunk.css.map": "/projectblock/static/css/main.c37f6b64.chunk.css.map",
+    "static/js/2.95649a2e.chunk.js.LICENSE.txt": "/projectblock/static/js/2.95649a2e.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/projectblock/static/media/outline-icons.ddae9b1b.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.27e07e69.js",
+    "static/css/2.4fcddf81.chunk.css",
+    "static/js/2.95649a2e.chunk.js",
+    "static/css/main.c37f6b64.chunk.css",
+    "static/js/main.c46a453f.chunk.js"
+  ]
+}
