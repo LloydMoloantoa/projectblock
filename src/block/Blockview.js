@@ -23,7 +23,7 @@ function Blockview() {
     //blockchain = JSON.stringify(blockchain, null, 4);
     //console.log('is blockchain valid? ' + blockchain.isChainValid());
 
-    //blockchain.chain[1].data = { data: 56 };
+    //blockchain.chain[1].data = { data: hacker };
     //blockchain.chain[1].hash = blockchain.chain[1].calculateHash();
     //console.log('is blockchain valid? ' + blockchain.isChainValid().toString());
     //console.log('is blockchain valid? ' + blockchain.isChainValid());
