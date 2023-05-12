@@ -53,7 +53,7 @@ function AddBlockchain() {
                     <div class="d-none">
                         <input type="text" name="user_name" value={"BlockChain App"} />
                         <input type="email" name="user_email" value={"u22809695@tuks.co.za"} />
-                        <input type="message" name="message" value={"A block has been added to the blockchain"} />
+                        <input type="message" name="message" value={"HE LLO"} />
                     </div>
                 </form>
                 
