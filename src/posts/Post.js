@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import QRCode from 'qrcode';
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
@@ -51,7 +52,7 @@ function Home() {
                                     <div class="card-body">
                                         <h5 class="card-title" >{item.Title}</h5>
                                         <h5 class="card-title"> Address: {item.Hash}</h5>
-                                        <p class="card-text">{item.Background}</p>
+                                        <p class="card-text">{item.Background}</p>                     
                                         <h5 class="mt-2">Block: {item.Name}</h5>
                                     </div>
 

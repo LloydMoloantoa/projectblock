@@ -1,10 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
-import { Button} from "react-bootstrap";
-import { Link} from 'react-router-dom'
+import { Button } from "react-bootstrap";
+import { Link } from 'react-router-dom'
+import { useState, useRef, useEffect } from "react";
+import { ethers } from "ethers";
+import QRCode from 'qrcode';
+import QrReader from 'react-qr-reader-es6'
 const { Block } = require('./Blockchain');
 const { Blockchain } = require('./Blockchain');
-
 
 
 
@@ -19,6 +22,20 @@ function Blockview() {
         })
     }
 
+
+    const [text, setText] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [scanResultFile, setScanResultFile] = useState('');
+
+    const generateQrCode = async () => {
+        try {
+            const response = await QRCode.toDataURL(text);
+            setImageUrl(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     //blockchain.addBlock(new Block("37cfe7f7", "12/07/2017", { data: 10 }));
     //blockchain = JSON.stringify(blockchain, null, 4);
     //console.log('is blockchain valid? ' + blockchain.isChainValid());
@@ -31,17 +48,35 @@ function Blockview() {
 
     return (
         <div>
-
-            <div style={{ margin: "2rem"}}>
+            <div style={{ margin: "2rem" }}>
                 <Link className="d-grid gap-2" to={"/messageApp"}>
                     <Button size="lg">Add to Blockchain</Button>
                 </Link>
-            </div>
+               <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+                    <div className="my-3">
+                        <div className="my-3">
+                        <input type="text" class="form-control" label="Enter Text Here" onChange={(e) => setText(e.target.value)} />
+                        </div>
+                        <button onClick={() => generateQrCode()} className="btn btn-primary submit-button focus:ring focus:outline-none w-full">Generate QRCode</button>
+                    </div>
+
+                    <br />
+                    {imageUrl ? (
+                        <a href={imageUrl} download>
+                            <img src={imageUrl} alt="img" />
+                        </a>) : null}
+                </grid>
+                
+            </div> 
 
             {
                 blockchain.chain.map(index => {
+
+
                     return (
+
                         <div class="col" style={{ margin: "4rem" }}>
+
                             <div class="card h-70 p-3">
                                 <div class="card-body">
                                     <h3 class="card-title" >Block: {index.index}</h3>

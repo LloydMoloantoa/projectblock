@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState} from "react";
 import { ethers } from "ethers";
 import QRCode from 'qrcode';
 
-import QrReader from 'react-qr-reader-es6'
+//import QrReader from 'react-qr-reader-es6'
 //npm install ethers@5.6.9
 import ErrorMessage from "./ErrorMessage";
 
@@ -34,8 +34,8 @@ export default function SignMessage() {
   const [signatures, setSignatures] = useState([]);
   const [error, setError] = useState();
 
-  const [scanResultFile, setScanResultFile] = useState('');
-  const qrRef = useRef(null);
+ // const [scanResultFile, setScanResultFile] = useState('');
+  //const qrRef = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
 
 
@@ -66,7 +66,7 @@ export default function SignMessage() {
   
 
 
-  const handleErrorFile = (error) => {
+/*   const handleErrorFile = (error) => {
     console.log(error);
   }
   const handleScanFile = (result) => {
@@ -78,7 +78,7 @@ export default function SignMessage() {
     qrRef.current.openImageDialog();
   }
 
-
+ */
   return (
     <form className="m-4" onSubmit={handleSign}>
       <div className="credit-card w-full shadow-lg mx-auto rounded-xl bg-white">
@@ -97,10 +97,6 @@ export default function SignMessage() {
                 rows="4"
               />
             </div>
-
-
-
-
 
           </div>
         </main>
@@ -123,7 +119,7 @@ export default function SignMessage() {
 
 
 
-          <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+        {/*   <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
             <button onClick={onScanFile}>Scan Qr Code</button>
             <QrReader
               ref={qrRef}
@@ -135,7 +131,7 @@ export default function SignMessage() {
             />
             <h3>Scanned Code: {scanResultFile}</h3>
           </grid>
-
+ */}
 
 
 
@@ -143,14 +139,19 @@ export default function SignMessage() {
         </footer>
         {signatures.map((sig, idx) => {
           return (
-            <div className="p-2" key={sig}>
-              <div className="my-3">
+            <div key={sig}>
+             {/*  <div className="my-3">
                 <p>
                   Message {idx + 1}: {sig.message}
                 </p>
                 <p>Signer: {sig.address}</p>
                 <p>Signature: {sig.signature}</p>
+              </div> */}
+              <div>
+                <p>{sig.message},{sig.address},</p>               
+                <p>{sig.signature}</p>
               </div>
+
             </div>
           );
         })}
