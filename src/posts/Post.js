@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import QRCode from 'qrcode';
-import { Button, Table } from "react-bootstrap";
+import { Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
 import { Link, useNavigate } from 'react-router-dom'

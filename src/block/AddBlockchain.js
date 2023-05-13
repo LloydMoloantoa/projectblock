@@ -12,7 +12,6 @@ function AddBlockchain() {
 
     const currentDate = new Date();
     let time = currentDate.toString();
-    const [timestamp, setTimestamp] = useState('');
     const [data, setData] = useState('');
     const form = useRef();
 
@@ -24,8 +23,7 @@ function AddBlockchain() {
         const ids = uuid();
         let unigueId = ids.slice(0, 8);
 
-        let a = timestamp,
-            b = data;
+        let b = data;
 
         Data.push({ id: unigueId, timestamp: time, data: b });
 

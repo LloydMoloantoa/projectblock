@@ -2,10 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
 import { Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
-import { useState, useRef, useEffect } from "react";
-import { ethers } from "ethers";
+import { useState} from "react";
 import QRCode from 'qrcode';
-import QrReader from 'react-qr-reader-es6'
 const { Block } = require('./Blockchain');
 const { Blockchain } = require('./Blockchain');
 
@@ -25,7 +23,6 @@ function Blockview() {
 
     const [text, setText] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const [scanResultFile, setScanResultFile] = useState('');
 
     const generateQrCode = async () => {
         try {
