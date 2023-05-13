@@ -34,19 +34,15 @@ function AddBlockchain() {
                 console.log(error.text);
             });
         console.log(form.current)
-
-
         history("/blockView");
     }
 
     return (
-
-        
         <div className="credit-card w-full shadow-lg mx-auto rounded-xl bg-white">
             <Form className="mt-4 p-4">
-            <h1 className="text-xl font-semibold text-gray-700 text-center">
-            Paste data to block chain
-          </h1>
+                <h1 className="text-xl font-semibold text-gray-700 text-center">
+                    Paste data to block chain
+                </h1>
                 <form ref={form} onSubmit={handleSubmit}>
                     <div class="d-none">
                         <input type="text" name="user_name" value={"BlockChain App"} />
@@ -54,7 +50,7 @@ function AddBlockchain() {
                         <input type="message" name="message" value={"HE LLO"} />
                     </div>
                 </form>
-                
+
                 <Form.Group className="nb-3" controlId="formData">
                     <textarea class="form-control" rows="6" placeholder="Enter Data" required onChange={(e) => setData(e.target.value)}>
                     </textarea>

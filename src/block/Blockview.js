@@ -2,12 +2,10 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
 import { Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
-import { useState} from "react";
+import { useState } from "react";
 import QRCode from 'qrcode';
 const { Block } = require('./Blockchain');
 const { Blockchain } = require('./Blockchain');
-
-
 
 function Blockview() {
     let blockchain = new Blockchain();
@@ -19,7 +17,6 @@ function Blockview() {
             )
         })
     }
-
 
     const [text, setText] = useState('');
     const [imageUrl, setImageUrl] = useState('');
@@ -49,10 +46,10 @@ function Blockview() {
                 <Link className="d-grid gap-2" to={"/messageApp"}>
                     <Button size="lg">Add to Blockchain</Button>
                 </Link>
-               <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+                <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
                     <div className="my-3">
                         <div className="my-3">
-                        <input type="text" class="form-control" label="Enter Text Here" onChange={(e) => setText(e.target.value)} />
+                            <input type="text" class="form-control" label="Enter Text Here" onChange={(e) => setText(e.target.value)} />
                         </div>
                         <button onClick={() => generateQrCode()} className="btn btn-primary submit-button focus:ring focus:outline-none w-full">Generate QRCode</button>
                     </div>
@@ -63,17 +60,13 @@ function Blockview() {
                             <img src={imageUrl} alt="img" />
                         </a>) : null}
                 </grid>
-                
-            </div> 
+
+            </div>
 
             {
                 blockchain.chain.map(index => {
-
-
                     return (
-
                         <div class="col" style={{ margin: "4rem" }}>
-
                             <div class="card h-70 p-3">
                                 <div class="card-body">
                                     <h3 class="card-title" >Block: {index.index}</h3>
@@ -93,7 +86,6 @@ function Blockview() {
 }
 
 export default Blockview;
-
 
 /* let lloydCoin = new Blockchain();
 lloydCoin.addBlock(new Block(1, "10/07/2017", { amount: 4 }));

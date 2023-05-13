@@ -28,19 +28,13 @@ function Home() {
 
     return (
         <Fragment>
-
-
             <div style={{ margin: "2rem" }}> 
-
             <Link className="d-grid gap-2" to={"/create"}>
                 <Button size="lg">Post</Button>
             </Link>
             </div>
-
             <div style={{ margin: "2rem" }}>
-
             </div>
-
             {
                 Data && Data.length > 0
                     ?
@@ -67,7 +61,6 @@ function Home() {
                                 </div>
                             </div>
                                 <div style={{ margin: "4rem" }}>
-
                                 </div>
                             </>
                         )
@@ -75,7 +68,6 @@ function Home() {
                     :
                     "No data available"
             }
-
             <br>
             </br>
         </Fragment>

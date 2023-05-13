@@ -44,25 +44,23 @@ const Transact = () => {
         })
     }
 
-
-
     return (
         <div>
-                <h1>MataMask Wallet Connection </h1>
-                <button class="btn btn-primary" onClick={connectWallet}>connect to Wallet</button>
-                <h3>Address: {defaultAccount}</h3>
-                <h3>Balance: {userBalance}</h3>
+            <h1>MataMask Wallet Connection </h1>
+            <button class="btn btn-primary" onClick={connectWallet}>connect to Wallet</button>
+            <h3>Address: {defaultAccount}</h3>
+            <h3>Balance: {userBalance}</h3>
 
-                <form onSubmit={sendTransaction}>
-                    <h3>Enter TransactIon Address: </h3>
-                    <input class="form-control" type="text" name="to_address" placeholder="Enter Address:" />
-                    <h3>Enter Amount: </h3>
-                    <input class="form-control" type="number" name="product_form" placeholder="Amount " id="product_form" />
-                    <div className="my-3">
+            <form onSubmit={sendTransaction}>
+                <h3>Enter TransactIon Address: </h3>
+                <input class="form-control" type="text" name="to_address" placeholder="Enter Address:" />
+                <h3>Enter Amount: </h3>
+                <input class="form-control" type="number" name="product_form" placeholder="Amount " id="product_form" />
+                <div className="my-3">
                     <input class="btn btn-primary" type="submit" value="Submit" />
-                    </div>
-                </form>
-                {errorMessage}         
+                </div>
+            </form>
+            {errorMessage}
         </div>
     );
 

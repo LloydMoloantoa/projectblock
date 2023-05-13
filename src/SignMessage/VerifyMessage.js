@@ -1,13 +1,11 @@
 //npm install ethers@5.6.9
-import { useState, useRef} from "react";
+import { useState, useRef } from "react";
 import { ethers } from "ethers";
 import QrReader from 'react-qr-reader-es6'
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 
-
 const verifyMessage = async ({ message, address, signature }) => {
-
   try {
     const signerAddr = await ethers.utils.verifyMessage(message, signature);
     if (signerAddr !== address) {
@@ -32,12 +30,12 @@ export default function VerifyMessage() {
     const data = new FormData(e.target);
     let sign = data.get("message");
     var array = [];
-    if(scanResultFile.toString() !==""){
+    if (scanResultFile.toString() !== "") {
       array = scanResultFile.toString().split(",");
-    }else{
+    } else {
       array = sign.split(",");
-   }
-    
+    }
+
     console.log(scanResultFile);
     setSuccessMsg();
     setError();
@@ -68,29 +66,26 @@ export default function VerifyMessage() {
   }
 
   return (
-
-
-      <form className="m-4" onSubmit={handleVerification}>
-        <div >
-          <h1 >
-            Verify signature
-          </h1>
-          <div>
-            <div className="my-3">
-              <textarea
-                type="text"
-                name="message"
-                placeholder="Message"
-                class="form-control"
-                rows="4"
-              />
-            </div>
+    <form className="m-4" onSubmit={handleVerification}>
+      <div >
+        <h1 >
+          Verify signature
+        </h1>
+        <div>
+          <div className="my-3">
+            <textarea
+              type="text"
+              name="message"
+              placeholder="Message"
+              class="form-control"
+              rows="4"
+            />
           </div>
-          <footer className="p-4">
-
+        </div>
+        <footer className="p-4">
 
           <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-            <button  type="submit" class="btn btn-primary" onClick={onScanFile}>Scan Qr Code</button>
+            <button type="submit" class="btn btn-primary" onClick={onScanFile}>Scan Qr Code</button>
             <QrReader
               ref={qrRef}
               delay={100}
@@ -102,20 +97,18 @@ export default function VerifyMessage() {
             <p>Scanned Code: {scanResultFile}</p>
           </grid>
 
-
-
-            <button
-              type="submit"
-              class="btn btn-primary"
-            >
-              Verify signature
-            </button>
-          </footer>
-          <div>
-            <ErrorMessage message={error} />
-            <SuccessMessage message={successMsg} />
-          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+            Verify signature
+          </button>
+        </footer>
+        <div>
+          <ErrorMessage message={error} />
+          <SuccessMessage message={successMsg} />
         </div>
-      </form>
+      </div>
+    </form>
   );
 }
