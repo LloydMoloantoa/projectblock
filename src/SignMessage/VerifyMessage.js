@@ -5,6 +5,8 @@ import QrReader from 'react-qr-reader-es6'
 import ErrorMessage from "./ErrorMessage";
 import SuccessMessage from "./SuccessMessage";
 
+var array = [];
+
 const verifyMessage = async ({ message, address, signature }) => {
   try {
     const signerAddr = await ethers.utils.verifyMessage(message, signature);
@@ -27,14 +29,12 @@ export default function VerifyMessage() {
 
   const handleVerification = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    let sign = data.get("message");
-    var array = [];
-    if (scanResultFile.toString() !== "") {
+    //const data = new FormData(e.target);
+    //let sign = data.get("message");
+    
+   
       array = scanResultFile.toString().split(",");
-    } else {
-      array = sign.split(",");
-    }
+    
 
     console.log(scanResultFile);
     setSuccessMsg();
@@ -66,25 +66,8 @@ export default function VerifyMessage() {
   }
 
   return (
-    <form className="m-4" onSubmit={handleVerification}>
-      <div >
-        <h1 >
-          Verify signature
-        </h1>
-        <div>
-          <div className="my-3">
-            <textarea
-              type="text"
-              name="message"
-              placeholder="Message"
-              class="form-control"
-              rows="4"
-            />
-          </div>
-        </div>
-        <footer className="p-4">
-
-          <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+ <div>
+    <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
             <button type="submit" class="btn btn-primary" onClick={onScanFile}>Scan Qr Code</button>
             <QrReader
               ref={qrRef}
@@ -94,8 +77,18 @@ export default function VerifyMessage() {
               onScan={handleScanFile}
               legacyMode
             />
-            <p>Scanned Code: {scanResultFile}</p>
+            <p>Scanned Code:</p>
+            <p>Message: {array[0]}</p>
+            <p>Address: {array[1]}</p>
+            <p>SignMessage: {array[2]}</p>
           </grid>
+
+    <form className="m-4" onSubmit={handleVerification}>
+      <div >
+        
+        <footer className="p-4">
+
+          
 
           <button
             type="submit"
@@ -110,5 +103,6 @@ export default function VerifyMessage() {
         </div>
       </div>
     </form>
+    </div>
   );
 }

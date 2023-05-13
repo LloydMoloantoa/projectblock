@@ -8,9 +8,8 @@ function Edit(){
 
     const[id, setId] = useState('');   
     const[title, setTitle] = useState('');
-    const[hash, setHash] = useState('');
     const[background, setBackground] = useState('');
-    const[name, setName] = useState('');
+    const [imgs, setImgs] = useState();
 
     let history = useNavigate();
 
@@ -23,9 +22,8 @@ function Edit(){
 
         let a = Data[index];
         a.Title = title;
-        a.Hash = hash;
         a.Background = background;
-        a.Name = name;
+        a.Imgs = imgs;
         
         
         history("/post");
@@ -34,10 +32,20 @@ function Edit(){
     useEffect(() =>{
         setId(localStorage.getItem('Id'))
         setTitle(localStorage.getItem('Title'))
-        setHash(localStorage.getItem('Hash'))
         setBackground(localStorage.getItem('Background'))
-        setName(localStorage.getItem('Name'))       
+        setImgs(localStorage.getItem('Imgs'))       
     },[])
+
+    const handleChnage = (e) => {
+        console.log(e.target.files)
+        const data = new FileReader()
+        data.addEventListener('load', () => {
+            setImgs(data.result)
+        })
+        data.readAsDataURL(e.target.files[0])
+    }
+
+    console.log(imgs)
     
     return (
         <div>
@@ -46,17 +54,13 @@ function Edit(){
                     <Form.Control type="text" placeholder="Enter Title" value={title}  required onChange={(e) => setTitle(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
-                <Form.Group className="nb-3" controlId="formHash">
-                    <Form.Control type="text" placeholder="Enter Hash" value={hash} required onChange={(e) => setHash(e.target.value)}>
-                    </Form.Control>
-                </Form.Group>
                 <Form.Group className="nb-3" controlId="formBackground">
-                    <Form.Control type="text" placeholder="Enter name" value={background}  required onChange={(e) => setBackground(e.target.value)}>
+                    <Form.Control type="text" placeholder="Enter Story" value={background}  required onChange={(e) => setBackground(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
-                <Form.Group className="nb-3" controlId="formName">
-                    <Form.Control type="text" placeholder="Enter name" value={name}  required onChange={(e) => setName(e.target.value)}>
-                    </Form.Control>
+                <Form.Group className="nb-3" controlId="">
+                    <input type='file' onChange={handleChnage} /><br />
+                    <img src={imgs} height="200px" width="200px" />
                 </Form.Group>
                 <Button onClick={(e) => handleSubmit(e)} type="submit">Update</Button>
             </Form>

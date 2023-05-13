@@ -4,6 +4,9 @@ import { Button } from "react-bootstrap";
 import { Link } from 'react-router-dom'
 import { useState } from "react";
 import QRCode from 'qrcode';
+import { ethers } from "ethers";
+import ErrorMessage from "../SignMessage/ErrorMessage";
+import SuccessMessage from "../SignMessage/SuccessMessage";
 const { Block } = require('./Blockchain');
 const { Blockchain } = require('./Blockchain');
 
@@ -18,8 +21,24 @@ function Blockview() {
         })
     }
 
+    const verifyMessage = async ({ message, address, signature }) => {
+        try {
+          const signerAddr = await ethers.utils.verifyMessage(message, signature);
+          if (signerAddr !== address) {
+            return false;
+          }
+      
+          return true;
+        } catch (err) {
+          console.log(err);
+          return false;
+        }
+      };
+
     const [text, setText] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const [error, setError] = useState();
+    const [successMsg, setSuccessMsg] = useState();
 
     const generateQrCode = async () => {
         try {
@@ -29,6 +48,30 @@ function Blockview() {
             console.log(error);
         }
     }
+
+    const handleVerification = async (e) => {
+        e.preventDefault();
+        const data = new FormData(e.target);
+        let sign = data.get("message");
+        var array = sign.split(",");
+       
+        setSuccessMsg();
+        setError();
+        const isValid = await verifyMessage({
+          setError,
+          message: array[0].toString(),
+          address: array[1].toString(),
+          signature: array[2].toString()
+        });
+    
+        if (isValid) {
+          setSuccessMsg("Signature is valid!");
+        } else {
+          setError("Invalid signature");
+        }
+      };
+
+
 
     //blockchain.addBlock(new Block("37cfe7f7", "12/07/2017", { data: 10 }));
     //blockchain = JSON.stringify(blockchain, null, 4);
@@ -81,6 +124,41 @@ function Blockview() {
                     )
                 })
             }
+
+            <form className="m-4" onSubmit={handleVerification}>
+                <div >
+                    <h1 >
+                        Verify signature
+                    </h1>
+                    <div>
+                        <div className="my-3">
+                            <textarea
+                                type="text"
+                                name="message"
+                                placeholder="Message"
+                                class="form-control"
+                                rows="3"
+                            />
+                        </div>
+                    </div>
+                    <footer className="p-4">
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                        >
+                            Verify signature
+                        </button>
+                    </footer>
+                    <div>
+                        <ErrorMessage message={error} />
+                        <SuccessMessage message={successMsg} />
+                    </div>
+                </div>
+            </form>
+
+            <hr></hr>
         </div>
     )
 }
