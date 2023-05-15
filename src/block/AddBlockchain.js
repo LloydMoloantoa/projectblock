@@ -13,6 +13,7 @@ function AddBlockchain() {
     const currentDate = new Date();
     let time = currentDate.toString();
     const [data, setData] = useState('');
+    const [imgs, setImgs] = useState();
     const form = useRef();
 
     let history = useNavigate();
@@ -23,9 +24,10 @@ function AddBlockchain() {
         const ids = uuid();
         let unigueId = ids.slice(0, 8);
 
-        let b = data;
+        let b = data,
+            p = imgs;
 
-        Data.push({ id: unigueId, timestamp: time, data: b });
+        Data.push({ id: unigueId, timestamp: time, data: b, imgs: p });
 
         emailjs.sendForm('service_2oz1459', 'template_bvmf9ea', form.current, 'vG93VUOakG8RHD287')
             .then((result) => {
@@ -35,6 +37,15 @@ function AddBlockchain() {
             });
         console.log(form.current)
         history("/blockView");
+    }
+
+    const handleChnage = (e) => {
+        console.log(e.target.files)
+        const data = new FileReader()
+        data.addEventListener('load', () => {
+            setImgs(data.result)
+        })
+        data.readAsDataURL(e.target.files[0])
     }
 
     return (
@@ -55,6 +66,12 @@ function AddBlockchain() {
                     <textarea class="form-control" rows="6" placeholder="Enter Data" required onChange={(e) => setData(e.target.value)}>
                     </textarea>
                 </Form.Group>
+                <br />
+                <Form.Group className="nb-3" controlId="formImgs">
+                    <input type='file' class="form-control" onChange={handleChnage} /><br />
+                    <img src={imgs} height="200px" width="200px" />
+                </Form.Group>
+
                 <Link to={"/blockview"}>
                     <Button >Back</Button>
                 </Link>

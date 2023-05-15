@@ -10,30 +10,31 @@ import SuccessMessage from "../SignMessage/SuccessMessage";
 const { Block } = require('./Blockchain');
 const { Blockchain } = require('./Blockchain');
 
+
 function Blockview() {
     let blockchain = new Blockchain();
     // eslint-disable-next-line
     {
         Data.map((item) => {
             return (
-                blockchain.addBlock(new Block(item.id, item.timestamp, { data: item.data }))
+                blockchain.addBlock(new Block(item.id, item.timestamp, { data: item.data }, item.imgs))
             )
         })
     }
 
     const verifyMessage = async ({ message, address, signature }) => {
         try {
-          const signerAddr = await ethers.utils.verifyMessage(message, signature);
-          if (signerAddr !== address) {
-            return false;
-          }
-      
-          return true;
+            const signerAddr = await ethers.utils.verifyMessage(message, signature);
+            if (signerAddr !== address) {
+                return false;
+            }
+
+            return true;
         } catch (err) {
-          console.log(err);
-          return false;
+            console.log(err);
+            return false;
         }
-      };
+    };
 
     const [text, setText] = useState('');
     const [imageUrl, setImageUrl] = useState('');
@@ -54,22 +55,22 @@ function Blockview() {
         const data = new FormData(e.target);
         let sign = data.get("message");
         var array = sign.split(",");
-       
+
         setSuccessMsg();
         setError();
         const isValid = await verifyMessage({
-          setError,
-          message: array[0].toString(),
-          address: array[1].toString(),
-          signature: array[2].toString()
+            setError,
+            message: array[0].toString(),
+            address: array[1].toString(),
+            signature: array[2].toString()
         });
-    
+
         if (isValid) {
-          setSuccessMsg("Signature is valid!");
+            setSuccessMsg("Signature is valid!");
         } else {
-          setError("Invalid signature");
+            setError("Invalid signature");
         }
-      };
+    };
 
 
 
@@ -85,6 +86,7 @@ function Blockview() {
 
     return (
         <div>
+
             <div style={{ margin: "2rem" }}>
                 <Link className="d-grid gap-2" to={"/messageApp"}>
                     <Button size="lg">Add to Blockchain</Button>
@@ -110,16 +112,24 @@ function Blockview() {
                 blockchain.chain.map(index => {
                     return (
                         <div class="col" style={{ margin: "4rem" }}>
+
                             <div class="card h-70 p-3">
-                                <div class="card-body">
+                                <div class="card-body">                                  
                                     <h3 class="card-title" >Block: {index.index}</h3>
                                     <p class="card-title">Hash: {index.hash.substring(0, 20)} </p>
                                     <p class="card-text">PreviousHash: {index.previousHash.substring(0, 20)}</p>
                                     <h4 class="mt-2">{index.data.data}</h4>
+                                    <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+                                        <br />
+                                        {index.imgs ? (
+                                            <a href={index.imgs} download>
+                                                <img src={index.imgs} alt="img" />
+                                            </a>) : null}
+                                    </grid>
                                     <p class="mt-2">Timestamp: {index.timestamp}</p>
                                     <p class="mt-2">Is valid: {blockchain.isChainValid().toString()}</p>
                                 </div>
-                            </div>
+                            </div>                 
                         </div>
                     )
                 })
@@ -143,7 +153,6 @@ function Blockview() {
                     </div>
                     <footer className="p-4">
 
-
                         <button
                             type="submit"
                             class="btn btn-primary"
@@ -157,7 +166,6 @@ function Blockview() {
                     </div>
                 </div>
             </form>
-
             <hr></hr>
         </div>
     )
