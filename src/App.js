@@ -8,6 +8,7 @@ import VerifyApp from "./SignMessage/VerifyApp";
 import Post from './posts/Post';
 import Add from './posts/Add';
 import Edit from './posts/Edit';
+import Homepage from './Home/Homepage';
 
 import {
   useNavigate,
@@ -19,22 +20,26 @@ function App() {
 
     <Container>
       <Menu secondary>
+      <Menu.Item
+          name='Home'
+          onClick={() => navigate('/')}
+        />
         <Menu.Item
           name='BlockChain Data'
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/blockview')}
         />
         <Menu.Item
           name='Verify n Transact'
           onClick={() => navigate('/VerifyApp')}
         />
          <Menu.Item
-          name='View Story'
+          name='Ads and Stories'
           onClick={() => navigate('/post')}
         />
       </Menu>
 
       <Routes>
-        <Route path='/' element={<Blockview />} />
+        <Route path='/' element={<Homepage />} />
         <Route path='/blockview' element={<Blockview />} />
         <Route path='/messageApp' element={<MessageApp />} />
         <Route path='/verifyApp' element={<VerifyApp />} />

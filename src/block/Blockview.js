@@ -109,6 +109,7 @@ function Blockview() {
                             <input type="text" class="form-control" label="Enter Text Here" onChange={(e) => setText(e.target.value)} />
                         </div>
                         <button onClick={() => generateQrCode()} className="btn btn-primary submit-button focus:ring focus:outline-none w-full">Generate QRCode</button>
+                        &nbsp;
                         <button onClick={() => GeneratePDF()} className="btn btn-danger submit-button focus:ring focus:outline-none w-full">GeneratePDF</button>                 
                     </div>
 
