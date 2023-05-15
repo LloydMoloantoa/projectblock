@@ -7,6 +7,7 @@ import QRCode from 'qrcode';
 import { ethers } from "ethers";
 import ErrorMessage from "../SignMessage/ErrorMessage";
 import SuccessMessage from "../SignMessage/SuccessMessage";
+import jspdf from "jspdf";
 const { Block } = require('./Blockchain');
 const { Blockchain } = require('./Blockchain');
 
@@ -72,6 +73,17 @@ function Blockview() {
         }
     };
 
+    const GeneratePDF = () => {
+        var doc = new jspdf("p", "pt", "a2");
+        doc.html(document.querySelector("#content"), {
+            callback: function (pdf) {
+                //var pageCount = doc.internal.getNumberOfPages();
+                //pdf.deletePage(pageCount);
+                pdf.save("mypdf.pdf");
+            }
+        });
+    };
+
 
 
     //blockchain.addBlock(new Block("37cfe7f7", "12/07/2017", { data: 10 }));
@@ -85,7 +97,7 @@ function Blockview() {
     //console.log(JSON.stringify(blockchain, null, 4))
 
     return (
-        <div>
+        <div >
 
             <div style={{ margin: "2rem" }}>
                 <Link className="d-grid gap-2" to={"/messageApp"}>
@@ -97,6 +109,7 @@ function Blockview() {
                             <input type="text" class="form-control" label="Enter Text Here" onChange={(e) => setText(e.target.value)} />
                         </div>
                         <button onClick={() => generateQrCode()} className="btn btn-primary submit-button focus:ring focus:outline-none w-full">Generate QRCode</button>
+                        <button onClick={() => GeneratePDF()} className="btn btn-danger submit-button focus:ring focus:outline-none w-full">GeneratePDF</button>                 
                     </div>
 
                     <br />
@@ -105,35 +118,35 @@ function Blockview() {
                             <img src={imageUrl} alt="img" />
                         </a>) : null}
                 </grid>
-
             </div>
 
-            {
-                blockchain.chain.map(index => {
-                    return (
-                        <div class="col" style={{ margin: "4rem" }}>
-
-                            <div class="card h-70 p-3">
-                                <div class="card-body">                                  
-                                    <h3 class="card-title" >Block: {index.index}</h3>
-                                    <p class="card-title">Hash: {index.hash.substring(0, 20)} </p>
-                                    <p class="card-text">PreviousHash: {index.previousHash.substring(0, 20)}</p>
-                                    <h4 class="mt-2">{index.data.data}</h4>
-                                    <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                                        <br />
-                                        {index.imgs ? (
-                                            <a href={index.imgs} download>
-                                                <img src={index.imgs} alt="img" />
-                                            </a>) : null}
-                                    </grid>
-                                    <p class="mt-2">Timestamp: {index.timestamp}</p>
-                                    <p class="mt-2">Is valid: {blockchain.isChainValid().toString()}</p>
+            <div id="content">
+                {
+                    blockchain.chain.map(index => {
+                        return (
+                            <div class="col" style={{ margin: "4rem" }}>
+                                <div class="card h-70 p-3" >
+                                    <div class="card-body" >
+                                        <h3 class="card-title">Block: {index.index}</h3>
+                                        <p class="card-title">Hash: {index.hash.substring(0, 20)} </p>
+                                        <p class="card-text">PreviousHash: {index.previousHash.substring(0, 20)}</p>
+                                        <h4 class="mt-2">{index.data.data}</h4>
+                                        <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
+                                            <br />
+                                            {index.imgs ? (
+                                                <a href={index.imgs} download>
+                                                    <img src={index.imgs} alt="img" />
+                                                </a>) : null}
+                                        </grid>
+                                        <p class="mt-2">Timestamp: {index.timestamp}</p>
+                                        <p class="mt-2">Is valid: {blockchain.isChainValid().toString()}</p>
+                                    </div>
                                 </div>
-                            </div>                 
-                        </div>
-                    )
-                })
-            }
+                            </div>
+                        )
+                    })
+                }
+            </div>
 
             <form className="m-4" onSubmit={handleVerification}>
                 <div >
