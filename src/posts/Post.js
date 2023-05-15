@@ -8,11 +8,12 @@ function Home() {
 
     let history = useNavigate();
 
-    const handleEdit = (id, title,background, imgs,) => {
+    const handleEdit = (id, title, background, imgs, imgs2) => {
         localStorage.setItem('Id', id);
         localStorage.setItem('Title', title);
         localStorage.setItem('Background', background);
         localStorage.setItem('Imgs', imgs);
+        localStorage.setItem('Imgs2', imgs2);
     }
 
     const handleDelete = (id) => {
@@ -44,19 +45,35 @@ function Home() {
                                     <div class="card-body">
                                         <h5 class="card-title" >{item.Title}</h5>
                                         <p class="card-text">{item.Background}</p>
-                                        <grid item xl={4} lg={4} md={6} sm={12} xs={12}>
-                                            <br />
-                                            {item.Imgs? (
-                                                <a href={item.Imgs} download>
-                                                    <img src={item.Imgs} alt="img" />
-                                                </a>) : null}
-                                        </grid>
                                     </div>
+                                    <table>
+                                        <tr>                                         
+                                            <td>
+                                                <grid item xl={6} lg={6} md={8} sm={14} xs={14}>
+                                                    <br />
+                                                    {item.Imgs2 ? (
+                                                        <a href={item.Imgs2} download>
+                                                            <img src={item.Imgs2} alt="img" />
+                                                        </a>) : null}
+                                                </grid>
+                                            </td>
+                                            <td>
+                                                <grid item xl={1} lg={1} md={3} sm={6} xs={6}>
+                                                    <br />
+                                                    {item.Imgs ? (
+                                                        <a href={item.Imgs} download>
+                                                            <img src={item.Imgs} alt="img" />
+                                                        </a>) : null}
+                                                </grid>
+                                            </td>
+                                        </tr>
+                                    </table>
+
 
                                     <tr>
                                         <td>
                                             <Link to={'/edit'}>
-                                                <Button onClick={() => handleEdit(item.id, item.Title, item.Background, item.Imgs)}>Edit</Button>
+                                                <Button onClick={() => handleEdit(item.id, item.Title, item.Background, item.Imgs, item.Imgs2)}>Edit</Button>
                                             </Link>
                                             &nbsp;
                                             <Button onClick={() => handleDelete(item.id)}>Remove</Button>

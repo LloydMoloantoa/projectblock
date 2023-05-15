@@ -71,10 +71,13 @@ function AddBlockchain() {
                     <input type='file' class="form-control" onChange={handleChnage} /><br />
                     <img src={imgs} height="200px" width="200px" />
                 </Form.Group>
+                <br></br>
 
                 <Link to={"/blockview"}>
                     <Button >Back</Button>
                 </Link>
+                &nbsp;
+                &nbsp;
                 <Button onClick={(e) => handleSubmit(e)} type="submit">Submit</Button>
             </Form>
         </div>

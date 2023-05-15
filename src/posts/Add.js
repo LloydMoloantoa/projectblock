@@ -10,6 +10,7 @@ function Add() {
     const [title, setTitle] = useState('');
     const [background, setBackground] = useState('');
     const [imgs, setImgs] = useState();
+    const [imgs2, setImgs2] = useState();
 
     let history = useNavigate();
 
@@ -21,9 +22,11 @@ function Add() {
 
         let a = title,
             c = background,
-            p = imgs;
+            p = imgs,
+            p2 = imgs2;
+           
 
-        Data.push({ id: unigueId, Title: a, Background: c, Imgs: p });
+        Data.push({ id: unigueId, Title: a, Background: c, Imgs: p, Imgs2: p2 });
 
         history("/post");
     }
@@ -36,8 +39,16 @@ function Add() {
         })
         data.readAsDataURL(e.target.files[0])
     }
-
     console.log(imgs)
+
+    const handleChnage2 = (e) => {
+        console.log(e.target.files)
+        const data = new FileReader()
+        data.addEventListener('load', () => {
+            setImgs2(data.result)
+        })
+        data.readAsDataURL(e.target.files[0])
+    }
 
     return (
         <div>
@@ -54,8 +65,13 @@ function Add() {
                 </Form.Group>
                 
                 <Form.Group className="nb-3" controlId="">
-                    <input type='file' onChange={handleChnage} /><br />
+                    <input class="form-control" type='file' onChange={handleChnage} /><br />
                     <img src={imgs} height="200px" width="200px" />
+                </Form.Group>
+
+                <Form.Group className="nb-3" controlId="">
+                    <input class="form-control" type='file' onChange={handleChnage2} /><br />
+                    <img src={imgs2} height="200px" width="200px" />
                 </Form.Group>
                 <Button onClick={(e) => handleSubmit(e)} type="submit">Submit</Button>
             </Form>
