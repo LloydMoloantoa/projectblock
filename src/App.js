@@ -9,6 +9,8 @@ import Post from './posts/Post';
 import Add from './posts/Add';
 import Edit from './posts/Edit';
 import Homepage from './Home/Homepage';
+import Decrypt from './posts/decrypt';
+
 
 import {
   useNavigate,
@@ -46,6 +48,7 @@ function App() {
         <Route path='/post' element= {<Post />} />
         <Route path='/create' element= {<Add />} />
         <Route path='/edit' element= {<Edit />} />
+        <Route path='/decrypt' element= {<Decrypt />} />
       </Routes>
     </Container>
   )

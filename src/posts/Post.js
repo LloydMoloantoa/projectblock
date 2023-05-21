@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import CryptoJS from "crypto-js";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
@@ -16,6 +17,19 @@ function Home() {
         localStorage.setItem('Imgs2', imgs2);
     }
 
+    const handleDecrypt = (id, title, background, imgs, imgs2) => {
+        localStorage.setItem('Id', id);
+        localStorage.setItem('Title', title);
+        localStorage.setItem('Background', background);
+        localStorage.setItem('Imgs', imgs);
+        localStorage.setItem('Imgs2', imgs2);
+    }
+
+
+    //const data = JSON.parse(CryptoJS.AES.decrypt("U2FsdGVkX18iVzDAiOVae+mB5BnKlIfJCX8BsaeMRSI=", "XkhZG4fW2t2W").toString(CryptoJS.enc.Utf8));
+
+    // console.log( JSON.parse(CryptoJS.AES.decrypt("U2FsdGVkX18iVzDAiOVae+mB5BnKlIfJCX8BsaeMRSI=", "XkhZG4fW2t2W").toString(CryptoJS.enc.Utf8)));
+
     const handleDelete = (id) => {
         var index = Data.map(function (e) {
             return e.id
@@ -26,12 +40,17 @@ function Home() {
         history('/post');
     }
 
+
     return (
         <Fragment>
             <div style={{ margin: "2rem" }}>
                 <Link className="d-grid gap-2" to={"/create"}>
                     <Button size="lg">Post</Button>
                 </Link>
+                {/*    <div className="my-3">
+                    <input type="text" class="form-control" />
+                </div>
+                <Button onClick={() => decryptData(Data)}>Unlock</Button> */}
             </div>
             <div style={{ margin: "2rem" }}>
             </div>
@@ -47,7 +66,7 @@ function Home() {
                                         <p class="card-text">{item.Background}</p>
                                     </div>
                                     <table>
-                                        <tr>                                         
+                                        <tr>
                                             <td>
                                                 <grid item xl={6} lg={6} md={8} sm={14} xs={14}>
                                                     <br />
@@ -77,6 +96,10 @@ function Home() {
                                             </Link>
                                             &nbsp;
                                             <Button onClick={() => handleDelete(item.id)}>Remove</Button>
+                                            &nbsp;
+                                            <Link to={'/decrypt'}>
+                                                <Button onClick={() => handleDecrypt(item.id, item.Title, item.Background, item.Imgs, item.Imgs2)}>Decrypt</Button>
+                                            </Link>
                                         </td>
                                     </tr>
                                 </div>

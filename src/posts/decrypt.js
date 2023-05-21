@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import CryptoJS from "crypto-js";
 import { Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
 import Data from "./Data";
 import { useNavigate } from 'react-router-dom'
 
-function Edit() {
+function Decrypt() {
 
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
+    const [secretPass, setSecretPass] = useState('');
     const [background, setBackground] = useState('');
     const [imgs, setImgs] = useState();
     const [imgs2, setImgs2] = useState();
@@ -18,12 +20,15 @@ function Edit() {
         return e.id
     }).indexOf(id);
 
+  
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         let a = Data[index];
         a.Title = title;
-        a.Background = background;
+        a.Background = JSON.parse(CryptoJS.AES.decrypt(background, secretPass).toString(CryptoJS.enc.Utf8));
+        //a.Background = background;
         a.Imgs = imgs;
         a.Imgs2 = imgs2;
 
@@ -56,13 +61,15 @@ function Edit() {
         data.readAsDataURL(e.target.files[0])
     }
 
-    console.log(imgs)
-
     return (
         <div>
             <Form className="d-grid gap-2" style={{ margin: "15rem" }}>
                 <Form.Group className="nb-3" controlId="formTitle">
                     <Form.Control type="text" placeholder="Enter Title" value={title} required onChange={(e) => setTitle(e.target.value)}>
+                    </Form.Control>
+                </Form.Group>
+                <Form.Group className="nb-3" controlId="forSecretPass">
+                    <Form.Control type="password" placeholder="Enter PassWord" required onChange={(e) => setSecretPass(e.target.value)}>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group className="nb-3" controlId="formBackground">
@@ -78,10 +85,10 @@ function Edit() {
                     <input class="form-control" type='file' onChange={handleChnage2} /><br />
                     <img src={imgs2} height="200px" width="200px" />
                 </Form.Group>
-                <Button onClick={(e) => handleSubmit(e)} type="submit">Update</Button>
+                <Button onClick={(e) => handleSubmit(e)} type="submit">Decrypt</Button>
             </Form>
         </div>
     )
 }
 
-export default Edit;
+export default Decrypt;
